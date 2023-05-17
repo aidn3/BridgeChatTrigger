@@ -8,7 +8,7 @@ function formatMessageContent(message) {
         let part = splits[i]
 
         if (part.startsWith("http://") || part.startsWith("https://"))
-            components.push(new TextComponent(part).setClick("open_url", link).setHoverValue("&b" + link))
+            components.push(new TextComponent(part).setClick("open_url", part).setHoverValue("&b" + part))
         else
             components.push(new TextComponent(part))
 
