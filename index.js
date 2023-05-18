@@ -10,20 +10,27 @@ register("command", () => SETTINGS.openGUI()).setName("bridge")
 
 function asyncEdit(components, messageId, username, replyUsername, hypixelProfile, guildRank) {
     if (!hypixelProfile) {
-        new Thread(() => {
-            try {
-                hypixelProfile = resolveHypixelProfileByUsername(username)
+
+        resolveHypixelProfileByUsername(username)
+            .then(hypixelProfile => {
                 editHypixelRank(components, username, replyUsername, hypixelProfile.formattedRank)
 
                 guildRank = resolveGuildRankByPlayerUuid(hypixelProfile.uuid)
                 editGuildRank(components, guildRank)
 
                 ChatLib.editChat(messageId, new Message(components))
-            } catch (e) {
-                new Message(`ERROR: ${e}`).chat()
 
-            }
-        }).start()
+            })
+            .catch((e) => {
+                if (e.message.includes("SSLHandshakeException")) {
+                    new Message(`&c&lBridgeChatTrigger: Java version is too old. Can't resolve ranks.`).chat()
+                    new Message(`&cResolving ranks will be turned off.`).chat()
+                    new Message(`&cIt can be re-enabled from &f/bridge`).chat()
+                    SETTINGS.resolveRank = false
+                    SETTINGS.save()
+                }
+            })
+
 
     } else if (!guildRank) {
         new Thread(() => {
