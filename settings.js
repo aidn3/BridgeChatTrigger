@@ -4,7 +4,7 @@ import {@SwitchProperty, @Vigilant} from 'Vigilance'
 class Settings {
     @SwitchProperty({
         name: "Resolve Rank",
-        description: "What guild ranks should be used.",
+        description: "Use external API calls to resolve ranks",
         category: "General"
     })
     resolveRank = true
