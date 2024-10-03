@@ -1,8 +1,8 @@
 {
   "name": "BridgeChatTrigger",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "creator": "aidn5",
   "description": "Utility module to beautify in-game bridge on hypixel guild chat",
   "entry": "index.js",
-  "requires": [ "Vigilance", "axios" ]
+  "requires": []
 }
